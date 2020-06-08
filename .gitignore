@@ -3,5 +3,5 @@ df.pickle
 fim_data.csv
 fim_data.xlsx
 notebook-a/
-models-a/
 test_data-a/
+create_model/trained_models-a/
