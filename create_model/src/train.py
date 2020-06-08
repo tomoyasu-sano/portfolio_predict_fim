@@ -16,8 +16,9 @@ def train(path_to_df_file,path_to_models_dir):
     df = load_df(s.path_to_df_file)
 
     prediction_columns = column_afters   # 4
-    all_prediction_columns = list(prediction_columns[0]) + list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
-    almost_prediction_columns = list(prediction_columns[0]) + list(prediction_columns[1]) + list(prediction_columns[2])
+    discharge = list(prediction_columns[0])
+    almost_prediction_columns = list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
+    all_prediction_columns = discharge + almost_prediction_columns 
 
     # 多クラス問題の場合[1-7]→[0-6]に変更する必要がある
     df[almost_prediction_columns] = df[almost_prediction_columns] - 1
@@ -27,8 +28,8 @@ def train(path_to_df_file,path_to_models_dir):
     results_home = {}
 
     for length_value in range(len(prediction_columns)):
-        length = int(df.shape[0]*0.2)
-        arr = np.empty([length, ])
+        #length = int(df.shape[0]*0.2)
+        #arr = np.empty([length, ])
 
         for col in prediction_columns[length_value]:
             df_pre = df.drop(all_prediction_columns,  axis=1)
@@ -37,11 +38,11 @@ def train(path_to_df_file,path_to_models_dir):
             X = df_pre
             y = df[col]
 
-            X_train , X_test , y_train , y_test= model_selection.train_test_split(X,y, train_size=0.80, random_state=1)
+            X_train , X_test , y_train , y_test= model_selection.train_test_split(X,y, train_size=0.50, random_state=1)
             lgb_train = lgb.Dataset(X_train, y_train)
             lgb_eval = lgb.Dataset(X_test, y_test)
 
-            if length_value == 3:
+            if length_value == 0:
                 params = {'objective':'binary',}
         
             else:
@@ -60,7 +61,7 @@ def train(path_to_df_file,path_to_models_dir):
             pickle.dump(gbm, open(filename, 'wb'))
         
             #テストデータの予測
-            if length_value == 3:
+            if length_value == 0:
                 predicted_home = gbm.predict(X_test,num_iteration=gbm.best_iteration)
                 
                 y_pred_home = []
