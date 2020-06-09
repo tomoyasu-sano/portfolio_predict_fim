@@ -214,7 +214,7 @@ memory=[
     (7,'完全自立')
 ]
 #23
-sum_score=[80]
+#sum_score=[80]
 
 
 
@@ -336,7 +336,7 @@ class CareForm(forms.Form):
         required=True,initial=[4],
         widget=forms.RadioSelect)
 
-    sum_score = forms.IntegerField(
-        label='２４：FIN項目の合計点数',
-        required=True,initial=[80],
-       )
+  #  sum_score= forms.IntegerField(
+   #     label='２４：FIN項目の合計点数',
+    #    required=True,initial=[80],
+     #  )

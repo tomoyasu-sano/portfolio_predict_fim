@@ -1,37 +1,38 @@
-import json
+import os
 import numpy as np
 import pandas as pd
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.template import loader
+import lightgbm as lgb
+import pickle
+import json
 
-from .forms import CareForm
+import settings_path as s
+import materials
+import utilities as u
 
-from .create_model.src import materials
-from .create_model.src import settings_path
-from .create_model.src import utilities
 
-path_to_models_dir = settings_path.path_to_models_dir
-materials = settings_path.path_to_materials_file
+
+#docker image前のテスト：「POSTする値」を想定し、jsonファイルを作り、それを読み込んでテスト。テストするときはコメントアウト外す。
+#f = open('test.json', 'r')
+#data_dict = json.load(f)
+#path_to_models_dir  = s.path_to_models_dir 
+
+path_to_test_data_json = s.path_to_test_data_json
+path_to_models_dir = s.path_to_models_dir
+
+
 prediction_columns = materials.column_afters   # 4
 discharge = list(prediction_columns[0])
 almost_prediction_columns = list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
 all_prediction_columns = discharge + almost_prediction_columns 
+
 column_current = materials.column_current
 
-###　整理する。予測するページと結果を返すページ　
-### AIのモデルを読み込み計算
-### デザイン
-def predict(request):
-    context = {"form":CareForm()}  
-    return render(request, "predict_fim_app/predict.html", context)
+f = open(path_to_test_data_json, 'r')
+data_dict = json.load(f)
 
 
-def result(request):
-    #1)リクエストdataを全て受け取る 
-    data_dict = request.POST
-    input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
-
+def predict(data_dict,path_to_models_dir ):  
+    print("開始")  
     results={}
     results_home={}
 
@@ -44,6 +45,9 @@ def result(request):
             with open(filename, 'rb') as web:
                 loaded_model = pickle.load(web)
     
+            input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
+            #input_dict = input_dict.drop("id", axis=1)
+
             # 学習は0-6でしているため合わせる
             input_dict[column_current] = input_dict[column_current] - 1
 
@@ -68,27 +72,30 @@ def result(request):
     output_df = pd.DataFrame.from_dict(results, orient='index').T
     output_df[almost_prediction_columns] = output_df[almost_prediction_columns] + 1
 
-    df_sum_score, df_score = utilities.acurate_sum(output_df)
+    df_sum_score, df_score = u.acurate_sum(output_df)
 
-  
-
-    template = loader.get_template("predict_fim_app/result.html")
-    context={
-        "value": value
-    }
-    #context={
-     #   "predicted": predicted,
-      #  "percentage":percentage
-    #}
-    return render(request, "predict_fim_app/result.html", context)
+    #print(results_home)
+    print("完了")
+    return results_home, df_sum_score, df_score
     
-    #return render(request, "predict_fim_app/result.html")
+ 
 
 
+    """print("1ヶ月後")
+    print(output_df[prediction_columns[1]])
+    print("--------------------------")
+    print("２ヶ月後")
+    print(output_df[prediction_columns[2]])
+    
+    print("--------------------------")
+    print("３ヶ月後")
+    print(output_df[prediction_columns[3]])
+    print("--------------------------")
+    print(results_home["predict_home"])
+    #print(output_df)
+    #print(results_home)"""
     
 
 
-"""
-def index(request):
-    return render(request, "predict_fim_app/dog.html")
- """   
+if __name__ == "__main__":
+    predict(data_dict,path_to_models_dir )
