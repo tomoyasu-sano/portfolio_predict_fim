@@ -1,0 +1,342 @@
+from django import forms
+
+#1
+sex=[
+   (1,"男性"),
+   (2,"女性")
+]
+#2
+age=[70]
+
+#3
+disease=[
+   (1,"骨関節疾患"),
+   (2,"脳血管疾患"),
+   (3,"廃用症候群"),
+   (4,"その他")
+]
+#4
+days=[
+   (1,"1週間"),
+   (2,"2週間"),
+   (3,"3週間"),
+   (4,"4週間"),
+   (5,"5週間"),
+   (6,"6週間"),
+   (7,"7週間"),
+   (8,"8週間"),
+   (9,"9週間以上"),
+]
+#5
+helper=[
+   (0,"無し"),
+   (1,"有り")
+]
+#6
+meal=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+
+#7
+hygienic=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#8
+wipingClean=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#9
+upperBodyDressing=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#10
+lowerBodyDressing=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#11
+toiletAction=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#12
+urinationControl=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#13
+defecationControl=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#14
+bedsChairsWheelchairs=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#15
+toilet=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#16
+bathtubShower=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#17
+walkingWheelchair=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#18
+stairs=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#19
+understanding=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#20
+expression=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#21
+socialCommunication=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#21
+problemSolving=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#22
+memory=[
+    (1,'全介助'),
+    (2,'最大介助'),
+    (3,'中等度介助'),
+    (4,'最小介助'),
+    (5,'監視・準備'),
+    (6,'修正自立'),
+    (7,'完全自立')
+]
+#23
+sum_score=[80]
+
+
+
+class CareForm(forms.Form):
+    
+    sex = forms.ChoiceField(
+        label='１：性別', choices=sex,
+        required=True,initial=[1],
+        widget=forms.RadioSelect)
+
+    age = forms.IntegerField(
+        label='２：年齢',
+        required=True,initial=[70],
+       )
+    
+    disease = forms.ChoiceField(
+        label='3：疾患情報', choices=disease,
+        required=True,initial=[2],
+        widget=forms.RadioSelect)
+
+    days = forms.ChoiceField(
+        label='４：発症からの経過日数', choices=days,
+        required=True,initial=[1],
+        widget=forms.RadioSelect)
+
+    helper = forms.ChoiceField(
+        label='５：主要介護者の有無', choices=helper,
+        required=True,initial=[1],
+        widget=forms.RadioSelect)
+    
+
+    meal = forms.ChoiceField(
+        label='６：食事', choices=meal,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    hygienic = forms.ChoiceField(
+        label='７：整容', choices=hygienic,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    wipingClean = forms.ChoiceField(
+        label='８：清拭', choices=wipingClean,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    upperBodyDressing = forms.ChoiceField(
+        label='９：更衣上半身', choices=upperBodyDressing,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    lowerBodyDressing = forms.ChoiceField(
+        label='１０：更衣下半身', choices=lowerBodyDressing,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    toiletAction = forms.ChoiceField(
+        label='１１：トイレ動作', choices=toiletAction,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    urinationControl = forms.ChoiceField(
+        label='１２：排尿管理', choices=urinationControl,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    defecationControl = forms.ChoiceField(
+        label='１３：排便管理', choices=defecationControl,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    bedsChairsWheelchairs = forms.ChoiceField(
+        label='１４：ベッド・椅子・車椅子移乗', choices=bedsChairsWheelchairs,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    toilet = forms.ChoiceField(
+        label='１５：トイレ移乗', choices=toilet,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    bathtubShower = forms.ChoiceField(
+        label='１６：浴槽・シャワー移乗', choices=bathtubShower,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    walkingWheelchair = forms.ChoiceField(
+        label='１７：歩行・車椅子', choices=walkingWheelchair,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    stairs = forms.ChoiceField(
+        label='１８：階段', choices=stairs,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    understanding = forms.ChoiceField(
+        label='１９：理解', choices=understanding,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+    
+    expression = forms.ChoiceField(
+        label='２０：表出', choices=expression,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    socialCommunication = forms.ChoiceField(
+        label='２１：社会的交流', choices=socialCommunication,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    problemSolving = forms.ChoiceField(
+        label='２２：問題解決', choices=problemSolving,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    memory = forms.ChoiceField(
+        label='２３：記憶', choices=memory,
+        required=True,initial=[4],
+        widget=forms.RadioSelect)
+
+    sum_score = forms.IntegerField(
+        label='２４：FIN項目の合計点数',
+        required=True,initial=[80],
+       )

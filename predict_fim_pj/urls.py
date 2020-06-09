@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from predict_fim_app import views
+
+# appnameを指定することで、この空間はdogwolfというフォルダと認識しやすく、パスが通りやすい
+app_name = "predict_fim_app"
 
 urlpatterns = [
+    path("result/", views.result, name="result"),
+    path("predict/", views.predict , name="predict"),
     path('admin/', admin.site.urls),
 ]

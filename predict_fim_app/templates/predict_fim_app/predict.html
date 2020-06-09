@@ -1,0 +1,111 @@
+<div>
+    <p>項目を全て埋めましょう！（項目は全て必須です）</p>
+    <!-- form要素のactionでpostで遷移先をURL指定する。送る内容は </form>までの内容 -->
+    <form action="{% url 'result' %}" method='post' class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+
+        <div class="form-group" >
+            <div class="care-radio">
+                <!-- {}はdjangoの変数=views.pyから送る変数を参照。今回はcontext -->
+                <tr>
+                    <td>１：性別<br/>
+                        {{form.sex}}
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２：年齢<br/>
+                        {{form.age}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>３：疾患情報（今回の主疾患）<br/>
+                        {{form.disease}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>４：発症からの経過日数<br/>
+                        {{form.days}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>５：主要介護者の有無<br/>
+                        {{form.helper}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>６：食事<br/>
+                        {{form.meal}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>７：整容<br/>
+                        {{form.hygienic}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>８：清拭<br/>
+                        {{form.wipingClean}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>９：更衣上半身<br/>
+                        {{form.upperBodyDressing}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１０：更衣下半身<br/>
+                        {{form.lowerBodyDressing}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１１：トイレ動作<br/>
+                        {{form.toiletAction}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１２：排尿管理<br/>
+                        {{form.urinationControl}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１３：排便管理<br/>
+                        {{form.defecationControl}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１４：ベッド・椅子・車椅子移乗<br/>
+                        {{form.bedsChairsWheelchairs}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１５：トイレ移乗<br/>
+                        {{form.toilet}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１６：浴槽・シャワー移乗<br/>
+                        {{form.bathtubShower}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１７：歩行・車椅子<br/>
+                        {{form.walkingWheelchair}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１８：階段<br/>
+                        {{form.stairs}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>１９：理解<br/>
+                        {{form.understanding}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２０：表出<br/>
+                        {{form.expression}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２１：社会的交流<br/>
+                        {{form.socialCommunication}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２２：問題解決<br/>
+                        {{form.problemSolving}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２３：記憶<br/>
+                        {{form.memory}}               
+                    </td>
+                    <p>&nbsp;</p>
+                    <td>２４：FIN項目の合計点数<br/>
+                        {{form.sum_score}}               
+                </tr>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary"> 推定結果へ！</button>
+    </form>
+</div>

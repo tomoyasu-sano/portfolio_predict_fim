@@ -33,7 +33,7 @@ data_dict = json.load(f)
 print("準備ok")
 
 
-def predict(path_to_test_data_json,path_to_models_dir ):    
+def predict(data_dict,path_to_models_dir ):    
     results={}
     results_home={}
 
@@ -47,7 +47,7 @@ def predict(path_to_test_data_json,path_to_models_dir ):
                 loaded_model = pickle.load(web)
     
             input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
-            input_dict = input_dict.drop("id", axis=1)
+            #input_dict = input_dict.drop("id", axis=1)
 
             # 学習は0-6でしているため合わせる
             input_dict[column_current] = input_dict[column_current] - 1
