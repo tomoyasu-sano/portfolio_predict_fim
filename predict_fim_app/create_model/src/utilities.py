@@ -11,8 +11,10 @@ import settings_path as s
 from settings_path import path_to_test_data_json
 
 
+f = open(path_to_test_data_json, 'r')
+data_dict = json.load(f)
 
-def acurate_sum(output_df):
+def acurate_sum(output_df, data_dict):
 
 #path_to_test_data_json = s.path_to_test_data_json
 #path_to_models_dir = s.path_to_models_dir
@@ -20,8 +22,6 @@ def acurate_sum(output_df):
 #output_df, results_home = predict(path_to_test_data_json, path_to_models_dir)
 
 
-    f = open(path_to_test_data_json, 'r')
-    data_dict = json.load(f)
 
     score_0M = []
     score_1M = []

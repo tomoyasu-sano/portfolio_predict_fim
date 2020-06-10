@@ -1,18 +1,35 @@
 
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div>
     <h4 class="mt-4 mb-5 border-bottom"> 推定結果</h4>
 
-    <table class="table">
+
+    <h3>自宅退院の可能性</h3>
+    <p>自宅退院は{{ discharge }}%と推定されます。</p>
+    <table class="table" botder=1>
         <tr>
-            <td>あなたは要介護は</td>
-            <td>{{ value }}と推定されます。</td>
+            <th>FIMの合計点数の推移予測</th>
         </tr>
         <tr>
-            <td>推定確率</td>
-            <td> である可能性は、1%です</td>
+            <td> 1ヶ月後は{{ after_1M }}点です。</td>
+            <td> 2ヶ月後は{{ after_2M }}点です。</td>
+            <td> 3ヶ月後は{{ after_3M }}点です。</td>
         </tr>
     </table>
+
+
+        {% autoescape off %}
+        <div> {{ fig_graph_html }}</div>
+        {% endautoescape %}
+
+        {% autoescape off %}
+        <div> {{ fig_table_html }}</div>
+        {% endautoescape %}
+
+        
+
+     
+ 
 
 
 

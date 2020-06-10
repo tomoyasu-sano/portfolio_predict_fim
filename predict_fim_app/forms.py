@@ -213,9 +213,6 @@ memory=[
     (6,'修正自立'),
     (7,'完全自立')
 ]
-#23
-#sum_score=[80]
-
 
 
 class CareForm(forms.Form):
@@ -335,8 +332,3 @@ class CareForm(forms.Form):
         label='２３：記憶', choices=memory,
         required=True,initial=[4],
         widget=forms.RadioSelect)
-
-  #  sum_score= forms.IntegerField(
-   #     label='２４：FIN項目の合計点数',
-    #    required=True,initial=[80],
-     #  )

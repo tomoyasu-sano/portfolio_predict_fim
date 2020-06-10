@@ -24,4 +24,5 @@ urlpatterns = [
     path("result/", views.result, name="result"),
     path("predict/", views.predict , name="predict"),
     path('admin/', admin.site.urls),
+    
 ]

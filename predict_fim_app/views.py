@@ -1,27 +1,28 @@
 import json
+import os
+import matplotlib.pyplot as plt
 import numpy as np
+import pickle
 import pandas as pd
+import plotly.express as px
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 
+
 from .forms import CareForm
+from .materials_cp import column_afters, column_current, input_columns, sum_1M, sum_2M, sum_3M  
 
-from .create_model.src import materials
-from .create_model.src import settings_path
-from .create_model.src import utilities
+# pathが難しい。 materials_cpを作成し読み込む。使用したい関数は下記に作成（materials_cpに関数を描いても良いカモ）
 
-path_to_models_dir = settings_path.path_to_models_dir
-materials = settings_path.path_to_materials_file
-prediction_columns = materials.column_afters   # 4
-discharge = list(prediction_columns[0])
+prediction_columns = column_afters
+column_current = column_current
 almost_prediction_columns = list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
-all_prediction_columns = discharge + almost_prediction_columns 
-column_current = materials.column_current
 
-###　整理する。予測するページと結果を返すページ　
-### AIのモデルを読み込み計算
-### デザイン
+
+
+path_to_models_dir = "predict_fim_app/create_model/trained_models/"
+
 def predict(request):
     context = {"form":CareForm()}  
     return render(request, "predict_fim_app/predict.html", context)
@@ -31,11 +32,17 @@ def result(request):
     #1)リクエストdataを全て受け取る 
     data_dict = request.POST
     input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
+    input_dict = input_dict[input_columns]
+    input_dict = input_dict.astype('int64')
+
+
+    # 学習は0-6でしているため合わせる
+    input_dict[column_current] = input_dict[column_current] - 1
 
     results={}
     results_home={}
 
-    for length_value in range(len(prediction_columns)):
+    for length_value in range(len(prediction_columns)): #4
 
         for col in prediction_columns[length_value]:
             name =  col + "_LGBM.pkl"
@@ -44,8 +51,6 @@ def result(request):
             with open(filename, 'rb') as web:
                 loaded_model = pickle.load(web)
     
-            # 学習は0-6でしているため合わせる
-            input_dict[column_current] = input_dict[column_current] - 1
 
             
              #テストデータの予測
@@ -64,31 +69,76 @@ def result(request):
                 predicted = loaded_model.predict(input_dict)
                 y_pred= np.argmax(predicted, axis=1)  # 最尤と判断したクラスの値にする
                 results[col] = y_pred[0]
-           
+    
     output_df = pd.DataFrame.from_dict(results, orient='index').T
     output_df[almost_prediction_columns] = output_df[almost_prediction_columns] + 1
 
-    df_sum_score, df_score = utilities.acurate_sum(output_df)
+    
+    df_sum_score, df_score = _acurate_sum(output_df, input_dict)
 
-  
+    #グラフの作成とそれをHTMLとして取得
+    import plotly.express as px
+    from plotly.offline import plot
+    import plotly.figure_factory as ff
+    df_graph = pd.DataFrame(np.array(df_sum_score), index=["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"], columns=["FIM合計点数"])
+    fig_graph = px.line(df_graph,x=df_graph.index, y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index,width=960, height=640)
+    fig_graph_html = plot(fig_graph, output_type='div', include_plotlyjs=False)
 
+    fig_table = ff.create_table(df_score, height_constant=30,index=True,index_title='FIM 項目')
+    fig_table.layout.width=960
+    fig_table_html = plot(fig_table, output_type='div', include_plotlyjs=False)
+
+
+
+    #template用に加工
+    discharge = round(results_home["predict_home"][0] *100)
+
+    present = int(df_sum_score[0])
+    after_1M = int(df_sum_score[1])
+    after_2M = int(df_sum_score[2])
+    after_3M = int(df_sum_score[3])
+
+    
     template = loader.get_template("predict_fim_app/result.html")
     context={
-        "value": value
-    }
-    #context={
-     #   "predicted": predicted,
-      #  "percentage":percentage
-    #}
+        "discharge": discharge,
+        "present": present,
+        "after_1M": after_1M,
+        "after_2M": after_2M,
+        "after_3M": after_3M,
+        "df_score": df_score,
+        'fig_graph_html': fig_graph_html,
+        'fig_table_html': fig_table_html,
+
+            }
+  
+    
     return render(request, "predict_fim_app/result.html", context)
     
-    #return render(request, "predict_fim_app/result.html")
+
+def _acurate_sum(output_df, input_dict):
+    score_0M = input_dict[column_current]
+    score_1M = output_df[sum_1M]
+    score_2M = output_df[sum_2M]
+    score_3M = output_df[sum_3M]
+
+    #column名を揃える
+    score_1M.columns = column_current
+    score_2M.columns = column_current
+    score_3M.columns = column_current
 
 
+    #print(type(hoge_dict))
+    sum_0M_score = score_0M.sum(axis=1)
+    sum_1M_score = score_1M.sum(axis=1)
+    sum_2M_score = score_2M.sum(axis=1)
+    sum_3M_score = score_3M.sum(axis=1)
+
+    df_sum_score = [sum_0M_score, sum_1M_score,sum_2M_score,sum_3M_score]
+
+    df_score = pd.concat([score_0M, score_1M, score_2M, score_3M]).T
+    df_score.columns = ["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"]
     
+    return df_sum_score, df_score
 
 
-"""
-def index(request):
-    return render(request, "predict_fim_app/dog.html")
- """   

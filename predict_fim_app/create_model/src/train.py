@@ -6,7 +6,7 @@ import lightgbm as lgb
 import sklearn
 from sklearn import model_selection
 
-from materials import column_afters
+from materials import column_afters, column_current
 from model_db import load_df
 import settings_path as s
 
@@ -16,12 +16,11 @@ def train(path_to_df_file,path_to_models_dir):
     df = load_df(s.path_to_df_file)
 
     prediction_columns = column_afters   # 4
-    discharge = list(prediction_columns[0])
-    almost_prediction_columns = list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
-    all_prediction_columns = discharge + almost_prediction_columns 
+    all_fim_columns = list(column_current) +list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
+    all_prediction_columns =list(prediction_columns[0]) +list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
 
     # 多クラス問題の場合[1-7]→[0-6]に変更する必要がある
-    df[almost_prediction_columns] = df[almost_prediction_columns] - 1
+    df[all_fim_columns] = df[all_fim_columns] - 1
 
 
     results = {}

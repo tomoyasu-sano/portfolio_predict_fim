@@ -46,9 +46,19 @@ def predict(data_dict,path_to_models_dir ):
                 loaded_model = pickle.load(web)
     
             input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
-            #input_dict = input_dict.drop("id", axis=1)
+            input_dict = input_dict.astype("int64")
+            #print(input_dict)
+            #print(input_dict.shape)
+            #print(input_dict.columns)
+            
+            hoge_dict = input_dict[column_current]
+            print(hoge_dict)
+            #print(type(hoge_dict))
+            print("sum:", hoge_dict.sum(axis=1))
+
 
             # 学習は0-6でしているため合わせる
+            
             input_dict[column_current] = input_dict[column_current] - 1
 
             
@@ -72,16 +82,19 @@ def predict(data_dict,path_to_models_dir ):
     output_df = pd.DataFrame.from_dict(results, orient='index').T
     output_df[almost_prediction_columns] = output_df[almost_prediction_columns] + 1
 
-    df_sum_score, df_score = u.acurate_sum(output_df)
+    df_sum_score, df_score = u.acurate_sum(output_df,data_dict)
 
     #print(results_home)
     print("完了")
     return results_home, df_sum_score, df_score
+
+    
     
  
 
 
-    """print("1ヶ月後")
+"""
+    print("1ヶ月後")
     print(output_df[prediction_columns[1]])
     print("--------------------------")
     print("２ヶ月後")
@@ -93,9 +106,9 @@ def predict(data_dict,path_to_models_dir ):
     print("--------------------------")
     print(results_home["predict_home"])
     #print(output_df)
-    #print(results_home)"""
+    #print(results_home)
+"""
     
-
 
 if __name__ == "__main__":
     predict(data_dict,path_to_models_dir )

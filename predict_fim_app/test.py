@@ -1,3 +1,3 @@
-from .create_model.src import materials
+from create_model.src import materials
 
 print(materials.attributes)
