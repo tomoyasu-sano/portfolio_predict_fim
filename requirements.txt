@@ -15,7 +15,6 @@ Django==2.2.2
 django-bootstrap4==0.0.8
 django-heroku==0.3.1
 entrypoints==0.3
-flickrapi==2.4.0
 gast==0.2.2
 grpcio==1.16.1
 gunicorn==20.0.4
@@ -31,8 +30,6 @@ joblib==0.13.2
 jsonschema==3.0.1
 jupyter-client==5.2.4
 jupyter-core==4.4.0
-Keras-Applications==1.0.8
-Keras-Preprocessing==1.1.0
 kiwisolver==1.2.0
 lazy-object-proxy==1.4.1
 lightgbm==2.3.0
@@ -52,7 +49,6 @@ pandocfilters==1.4.2
 parso==0.4.0
 pexpect==4.7.0
 pickleshare==0.7.5
-Pillow==6.0.0
 plotly==4.8.1
 prometheus-client==0.6.0
 prompt-toolkit==2.0.9
@@ -75,9 +71,6 @@ scipy==1.2.1
 Send2Trash==1.5.0
 six==1.12.0
 sqlparse==0.3.0
-tensorboard==1.13.1
-tensorflow==1.13.1
-tensorflow-estimator==1.13.0
 termcolor==1.1.0
 terminado==0.8.2
 testpath==0.4.2
