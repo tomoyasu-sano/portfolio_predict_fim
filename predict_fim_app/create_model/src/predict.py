@@ -47,15 +47,6 @@ def predict(data_dict,path_to_models_dir ):
     
             input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
             input_dict = input_dict.astype("int64")
-            #print(input_dict)
-            #print(input_dict.shape)
-            #print(input_dict.columns)
-            
-            hoge_dict = input_dict[column_current]
-            print(hoge_dict)
-            #print(type(hoge_dict))
-            print("sum:", hoge_dict.sum(axis=1))
-
 
             # 学習は0-6でしているため合わせる
             

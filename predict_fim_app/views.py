@@ -11,7 +11,7 @@ from django.template import loader
 
 
 from .forms import CareForm
-from .materials_cp import column_afters, column_current, input_columns, sum_1M, sum_2M, sum_3M  
+from .materials_cp import column_afters, column_current, input_columns, sum_1M, sum_2M, sum_3M, fim_motor_item
 
 # pathが難しい。 materials_cpを作成し読み込む。使用したい関数は下記に作成（materials_cpに関数を描いても良いカモ）
 
@@ -19,9 +19,11 @@ prediction_columns = column_afters
 column_current = column_current
 almost_prediction_columns = list(prediction_columns[1]) + list(prediction_columns[2]) + list(prediction_columns[3])
 
-
-
 path_to_models_dir = "predict_fim_app/create_model/trained_models/"
+
+
+
+
 
 def predict(request):
     context = {"form":CareForm()}  
@@ -53,7 +55,7 @@ def result(request):
     
 
             
-             #テストデータの予測
+             #テストデータの予測 length_value==0 は 自宅復帰を予測
             if length_value == 0:
                 predicted_home = loaded_model.predict(input_dict)
             
@@ -70,18 +72,18 @@ def result(request):
                 y_pred= np.argmax(predicted, axis=1)  # 最尤と判断したクラスの値にする
                 results[col] = y_pred[0]
     
+    # FIM合計と項目ごとの推移を抽出
     output_df = pd.DataFrame.from_dict(results, orient='index').T
     output_df[almost_prediction_columns] = output_df[almost_prediction_columns] + 1
-
     
-    df_sum_score, df_score = _acurate_sum(output_df, input_dict)
+    df_sum_score, df_score, fim_profit = _acurate_sum(output_df, input_dict)
 
     #グラフの作成とそれをHTMLとして取得
     import plotly.express as px
     from plotly.offline import plot
     import plotly.figure_factory as ff
     df_graph = pd.DataFrame(np.array(df_sum_score), index=["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"], columns=["FIM合計点数"])
-    fig_graph = px.line(df_graph,x=df_graph.index, y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index,width=960, height=640)
+    fig_graph = px.line(df_graph,x=df_graph.index, y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index,width=960, height=480)
     fig_graph_html = plot(fig_graph, output_type='div', include_plotlyjs=False)
 
     fig_table = ff.create_table(df_score, height_constant=30,index=True,index_title='FIM 項目')
@@ -109,7 +111,7 @@ def result(request):
         "df_score": df_score,
         'fig_graph_html': fig_graph_html,
         'fig_table_html': fig_table_html,
-
+        'fim_profit': fim_profit
             }
   
     
@@ -117,6 +119,7 @@ def result(request):
     
 
 def _acurate_sum(output_df, input_dict):
+    # それぞれのカラムのデータfラームを抽出
     score_0M = input_dict[column_current]
     score_1M = output_df[sum_1M]
     score_2M = output_df[sum_2M]
@@ -128,17 +131,22 @@ def _acurate_sum(output_df, input_dict):
     score_3M.columns = column_current
 
 
-    #print(type(hoge_dict))
+    #合計を計算
     sum_0M_score = score_0M.sum(axis=1)
     sum_1M_score = score_1M.sum(axis=1)
     sum_2M_score = score_2M.sum(axis=1)
     sum_3M_score = score_3M.sum(axis=1)
 
+    # 合計点数と各項目をdataframe化
     df_sum_score = [sum_0M_score, sum_1M_score,sum_2M_score,sum_3M_score]
-
     df_score = pd.concat([score_0M, score_1M, score_2M, score_3M]).T
     df_score.columns = ["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"]
+
+    # FIM利得計算
+    fim_enter = score_0M[fim_motor_item].sum(axis=1)
+    fim_discharge = score_3M[fim_motor_item].sum(axis=1)
+    fim_profit = fim_discharge - fim_enter
     
-    return df_sum_score, df_score
+    return df_sum_score, df_score, fim_profit[0]
 
 

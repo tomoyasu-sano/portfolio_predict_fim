@@ -43,3 +43,7 @@ sum_3M =['meal_after_3M','hygienic_after_3M','wipingClean_after_3M','upperBodyDr
     'bathtubShower_after_3M','walkingWheelchair_after_3M','stairs_after_3M','understanding_after_3M','expression_after_3M','socialCommunication_after_3M',
     'problemSolving_after_3M','memory_after_3M'
 ]
+
+fim_motor_item =['meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing','toiletAction','urinationControl','defecationControl',
+            'bedsChairsWheelchairs','toilet','bathtubShower','walkingWheelchair','stairs'
+]

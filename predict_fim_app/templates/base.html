@@ -1,0 +1,88 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'predict_fim_app/custom.css' %}">
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>FIM予測アプリ</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'predict' %}">FIM予測AI <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/tomoyasu-sano">ポートフォリオ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    
+    <br>
+    <br>
+    {% block body %}
+    {% endblock %}
+    <!--
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          １カラム
+        </div>
+        <div class="col">
+          ２カラム
+        </div>
+        <div class="col">
+          ３カラム
+        </div>
+      </div>
+    </div>
+   
+  
+    <div class="container text-white">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 border bg-primary">
+                ①
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 border bg-primary">
+                ②
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 border bg-primary">
+                ③
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 border bg-primary">
+                ④
+            </div>
+        </div>
+    </div>
+    -->
+    <div id="social-platforms">
+      
+      <a class="btn btn-icon btn-facebook" href="https://www.facebook.com/tomoyasu.sano.1"><i class="fa fa-facebook"></i><span>Facebook</span></a>
+      <a class="btn btn-icon btn-twitter" href="https://twitter.com/home?lang=ja"><i class="fa fa-twitter"></i><span>Twitter</span></a>
+      <a class="btn btn-icon btn-github" href="https://github.com/tomoyasu-sano"><i class="fa fa-github"></i><span>github</span></a>
+      <a class="btn btn-icon btn-list-alt" href="https://www.wantedly.com/users/18221620"><i class="fa fa-list-alt"></i><span>wantedly</span></a>
+    </div>
+      
+
+
+  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>  
+  </body>
+</html>
