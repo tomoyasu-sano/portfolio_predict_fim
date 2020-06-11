@@ -1,4 +1,6 @@
 fim_db.sqlite3
+
+db.sqlite3
 df.pickle
 fim_data.csv
 fim_data.xlsx
