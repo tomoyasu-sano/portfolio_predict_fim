@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 
-
+from . import forms, models
 from .forms import CareForm
 from .materials_cp import column_afters, column_current, input_columns, sum_1M, sum_2M, sum_3M, fim_motor_item
 
@@ -30,7 +30,13 @@ def predict(request):
     return render(request, "predict_fim_app/predict.html", context)
 
 
+
 def result(request):
+    #post dataをdbに保存(modelで作成した name=db *fim_data.sq;ite3ではない)
+    form = forms.CareForm(request.POST or None)
+    if form.is_valid():
+        models.Predict_Fim_App.objects.create(**form.cleaned_data)
+        
     #1)リクエストdataを全て受け取る 
     data_dict = request.POST
     input_dict = pd.DataFrame.from_dict(data_dict, orient='index').T
@@ -55,7 +61,7 @@ def result(request):
     
 
             
-             #テストデータの予測 length_value==0 は 自宅復帰を予測
+            #テストデータの予測 length_value==0 は 自宅復帰を予測
             if length_value == 0:
                 predicted_home = loaded_model.predict(input_dict)
             
@@ -113,7 +119,7 @@ def result(request):
         'fig_table_html': fig_table_html,
         'fim_profit': fim_profit
             }
-  
+
     
     return render(request, "predict_fim_app/result.html", context)
     

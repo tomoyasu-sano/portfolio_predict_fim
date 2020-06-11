@@ -1,5 +1,6 @@
 from django import forms
 
+
 #1
 sex=[
    (1,"男性"),
@@ -216,6 +217,7 @@ memory=[
 
 
 class CareForm(forms.Form):
+
     
     sex = forms.ChoiceField(
         label='１：性別', choices=sex,
