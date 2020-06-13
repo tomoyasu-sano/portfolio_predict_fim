@@ -49,7 +49,7 @@ query_table = "create table fim_data(id int primary key not null,sex int not nul
             problemSolving_after_3M intger not null, memory_after_3M intger not null  \
             )"
 
-query_value = "insert into fim_data values(1,2,49,1,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4)"
+query_value = "insert into fim_data values(1,2,72,4,9,1,5,5,4,4,3,3,4,4,5,3,3,4,3,5,5,5,4,4,1,5,6,5,5,4,4,4,5,5,4,3,5,3,6,5,5,4,5,6,7,5,7,6,5,4,5,5,4,3,5,5,6,7,5,6,5,7,7,7,7,7,7,6,6,6,4,6,6,5,6,7,5,7,7)"
 
 
 

@@ -9,6 +9,7 @@ attributes = ['sex','age','disease','days','helper']
 column_current =['meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing','toiletAction','urinationControl','defecationControl',
             'bedsChairsWheelchairs','toilet','bathtubShower','walkingWheelchair','stairs','understanding','expression',
             'socialCommunication','problemSolving','memory']
+            
 column_current_ja = ['食事','整容','清拭','更衣上半身','更衣下半身','トイレ動作','排尿管理','排便管理','ベッド,椅子<br>,車椅子移乗','トイレ移乗',
                     '浴槽,<br>シャワー移乗','歩行,車椅子','階段','理解','表出','社会的交流','問題解決','記憶']
 

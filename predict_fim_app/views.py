@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 import pandas as pd
 import plotly.express as px
+import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
@@ -107,6 +108,20 @@ def result(request):
     after_2M = int(df_sum_score[2])
     after_3M = int(df_sum_score[3])
 
+    #担当者の名前を入れる(今回は適当に)＊＊おまけ
+    staff = ["加藤さんが、2020年3月に担当したK様と状態がとてもよく似ています。",
+         "田中さんが、2019年10月に担当したH様と状態が少し似ています。",
+         "小松さんが、2018年2月に担当したA様と状態がとてもよく似ています",
+           "岩澤さんが、2017年5月に担当したP様と状態が少し似ています。",
+           "後藤さんが、2020年1月に担当したW様と状態がとてもよく似ています。",
+           "南川さんが、2018年7月に担当したM様と状態がとてもよく似ています。",
+          "横山さんが、2019年12月に担当したC様と状態がとてもよく似ています。",    
+        ]
+    comment = ["困った時は相談をしてみてはいかがでしょうか。", "何かヒントをもらってみましょう！", "怖い先輩でも、相談したら優しい先輩ですよ。"]
+    staff_name = random.choice(staff)
+    ai_comment = random.choice(comment)
+
+
     
     template = loader.get_template("predict_fim_app/result.html")
     context={
@@ -118,7 +133,9 @@ def result(request):
         "df_score": df_score,
         'fig_graph_html': fig_graph_html,
         'fig_table_html': fig_table_html,
-        'fim_profit': fim_profit
+        'fim_profit': fim_profit,
+        'staff_name': staff_name,
+        'ai_comment': ai_comment,
             }
 
     

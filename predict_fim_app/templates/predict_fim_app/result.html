@@ -7,7 +7,6 @@
  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div>
         <h3 class="mt-4 mb-5 border-bottom text-center" > 推定結果</h3>
-
         <br>
     <div class="mx-auto">
         <h4 class="mt-4 mb-5 border-bottom text-center"> 自宅退院の可能性：{{ discharge }}%</h4>
@@ -51,6 +50,13 @@
     {% endautoescape %}
 
 <br>
+<div class="mx-auto">
+    <h4 class="mt-4 mb-5 border-bottom text-center"> AIコメント</h4>
+    <div style="border-left:5px solid #999999; margin:0 auto; padding: 10px; max-width:500px; color: #666666;">{{ staff_name }}<br>{{ ai_comment}}</div>
+    <br>
+    <p class="text-center">*仮データからAIを作っています。</P>
+</div>
+
 <br>
 <br>
 <div class="mx-auto">

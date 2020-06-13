@@ -37,7 +37,7 @@ def train(path_to_df_file,path_to_models_dir):
             X = df_pre
             y = df[col]
 
-            X_train , X_test , y_train , y_test= model_selection.train_test_split(X,y, train_size=0.50, random_state=1)
+            X_train , X_test , y_train , y_test= model_selection.train_test_split(X,y, train_size=0.80, random_state=1)
             lgb_train = lgb.Dataset(X_train, y_train)
             lgb_eval = lgb.Dataset(X_test, y_test)
 
@@ -54,7 +54,6 @@ def train(path_to_df_file,path_to_models_dir):
                     lgb_train,
                     valid_sets=lgb_eval,
                     num_boost_round=100,
-                    early_stopping_rounds=10
                     )
             
             filename = s.path_to_models_dir+ col +  "_LGBM.pkl"
