@@ -90,12 +90,12 @@ def result(request):
     import plotly.figure_factory as ff
     df_graph = pd.DataFrame(np.array(df_sum_score), index=["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"], columns=["FIM合計点数"])
     fig_graph = px.line(df_graph,x=["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"],  y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index)
-    fig_graph_html = plot(fig_graph, output_type='div', include_plotlyjs=False,config={'displayModeBar': False})
+    fig_graph_html = plot(fig_graph, output_type='div', include_plotlyjs=False,config={'displayModeBar': False, 'staticPlot': True})
     #x=df_graph.index
 
    
     fig_table = ff.create_table(df_score, height_constant=30,index=column_current_ja ,index_title='FIM 項目')
-    fig_table_html = plot(fig_table, output_type='div', include_plotlyjs=False, config={'displayModeBar': False})
+    fig_table_html = plot(fig_table, output_type='div', include_plotlyjs=False, config={'displayModeBar': False, 'staticPlot': True})
 
 
 
