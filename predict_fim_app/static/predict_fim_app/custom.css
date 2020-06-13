@@ -142,3 +142,18 @@ h1 {font-size:1.5em;margin-bottom:55px;}
 
 
 .hoge { text-align: center; }
+
+
+@media screen and (min-width: 767px) { /*ウィンドウ幅が767px以上の場合に適用*/
+
+}
+
+@media screen and (max-width: 479px) { /*ウィンドウ幅が最大479pxまでの場合に適用*/
+  #menu-bg {
+    display:none; /*非表示*/
+    }
+  img {
+  max-width: 100% ;
+  height: auto;
+  }
+}
