@@ -1,3 +1,4 @@
+import copy
 import json
 import os
 import matplotlib.pyplot as plt
@@ -46,7 +47,8 @@ def result(request):
 
 
     # 学習は0-6でしているため合わせる
-    input_dict[column_current] = input_dict[column_current] - 1
+    input_dict_to_model = copy.copy(input_dict)
+    input_dict_to_model[column_current] = input_dict_to_model[column_current] - 1
 
     results={}
     results_home={}
@@ -64,7 +66,7 @@ def result(request):
             
             #テストデータの予測 length_value==0 は 自宅復帰を予測
             if length_value == 0:
-                predicted_home = loaded_model.predict(input_dict)
+                predicted_home = loaded_model.predict(input_dict_to_model)
             
                 y_pred_home = []
                 for x in predicted_home:
@@ -75,7 +77,7 @@ def result(request):
 
 
             else:
-                predicted = loaded_model.predict(input_dict)
+                predicted = loaded_model.predict(input_dict_to_model)
                 y_pred= np.argmax(predicted, axis=1)  # 最尤と判断したクラスの値にする
                 results[col] = y_pred[0]
     
