@@ -14,15 +14,19 @@ body {
 }
 
 h1 {font-size:1.5em;margin-bottom:55px;}
+ul {
+  list-style-type: none;
+}
 
 #social-platforms {
-  position:relative;
   top:100px;
   top:25vh;
   font-size:1rem;
   text-align:center;
-  height:250px;
+  height:100px;
+  margin-top: 50px;
   overflow:hidden;
+  justify-content: center;
 }
 
 /*Pen code from this point on*/
@@ -32,20 +36,11 @@ h1 {font-size:1.5em;margin-bottom:55px;}
   font-size:.8em;
   display:inline-block;
   border-radius:5px;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.35);
   margin:2px;
   -webkit-transition:all .5s;
   -moz-transition:all .5s;
   transition:all .5s;
   overflow:hidden
-}
-
-.btn:hover {
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.45);
-}
-
-.btn:focus {
-  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.4);
 }
 
 .btn > span,.btn-icon > i {
@@ -95,6 +90,11 @@ h1 {font-size:1.5em;margin-bottom:55px;}
   border-radius:0 5px 5px 0
 }
 
+.submit-btn {
+  margin: 0 auto;
+  width: 50%;
+}
+
 /*Facebook*/
 .btn-facebook:hover > i,.btn-facebook:focus > i {
   color:#3b5998
@@ -140,9 +140,9 @@ h1 {font-size:1.5em;margin-bottom:55px;}
   background:#007bb6
 }
 
-
 .hoge { text-align: center; }
 
+.padding-left { padding-left: 100px;}
 
 @media screen and (min-width: 767px) { /*ウィンドウ幅が767px以上の場合に適用*/
 
@@ -157,3 +157,22 @@ h1 {font-size:1.5em;margin-bottom:55px;}
   height: auto;
   }
 }
+
+@media screen and (min-width: 800px) {
+  .padding-left {
+    padding-left: 640px;
+  }
+ }
+
+ @media screen and (min-width: 800px) {
+  .padding-left-small {
+    padding-left: 200px;
+  }
+ }
+
+ @media screen and (max-width: 800px) {
+  .padding-left, .padding-left-small, .graph {
+    padding-left: 50px;
+    height: 360px;
+  }
+ }

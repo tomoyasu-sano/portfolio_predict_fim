@@ -2,52 +2,60 @@
 {% extends "base.html" %}
 {% block body %}
 
-<div class="mx-auto" style="width: 600px;">
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <div>
-    <h3 class="mt-4 mb-5 border-bottom"> 推定結果</h3>
+        <h3 class="mt-4 mb-5 border-bottom text-center" > 推定結果</h3>
 
-    <br>
-    <h4 class="mt-4 mb-5 border-bottom"> 自宅退院の可能性：{{ discharge }}%</h4>
-    <br>
-    <h4 class="mt-4 mb-5 border-bottom"> FIM利得(３ヶ月間)：{{ fim_profit }}点</h4>
-    <br>
-    <h4 class="mt-4 mb-5 border-bottom"> FIM合計点数の予測推移</h4>
-    <table class="table">
-        <tr>
-            <td>現在の合計点数</td>
-            <td> {{ present }}点</td>
-        </tr>
-        <tr>
-            <td>1ヶ月後</td>
-            <td> {{ after_1M }}点</td>
-        </tr>
-        <tr>
-            <td>2ヶ月後</td>
-            <td> {{ after_2M }}点</td>
-        </tr>
-        <tr>
-            <td>3ヶ月後</td>
-            <td> {{ after_3M }}点</td>
-        </tr>
-    </table>
-</div>
+        <br>
+    <div class="mx-auto">
+        <h4 class="mt-4 mb-5 border-bottom text-center"> 自宅退院の可能性：{{ discharge }}%</h4>
+        <br>
+        <h4 class="mt-4 mb-5 border-bottom text-center"> FIM利得(３ヶ月間)：{{ fim_profit }}点</h4>
+        <br>
+    </div>
+    <div class="padding-left-small">
+        <h4 class="mt-4 mb-5 border-bottom"> FIM合計点数の予測推移</h4>
+ 
+        <table class="table">
+            <tr>
+                <td>現在の合計点数</td>
+                <td> {{ present }}点</td>
+            </tr>
+            <tr>
+                <td>1ヶ月後</td>
+                <td> {{ after_1M }}点</td>
+            </tr>
+            <tr>
+                <td>2ヶ月後</td>
+                <td> {{ after_2M }}点</td>
+            </tr>
+            <tr>
+                <td>3ヶ月後</td>
+                <td> {{ after_3M }}点</td>
+            </tr>
+        </table>
+    </div>
+
 </div>
 <br>
+<div class="graph">
     {% autoescape off %}
     <center>{{ fig_graph_html }} </center>
     {% endautoescape %}
-
+</div>
 
     {% autoescape off %}
     <center>{{ fig_table_html }}</center>
     {% endautoescape %}
 
-<div class="mx-auto" style="width: 600px;">
 <br>
 <br>
 <br>
- <a href = "{% url 'predict' %}"　type="button" class="btn btn-primary btn-lg btn-block">もう一度、推定する</a>
+<div class="mx-auto">
+    <div class="d-flex justify-content-center">
+    <a href = "{% url 'predict' %}"　type="button" class="btn btn-primary submit-btn">もう一度、推定する</a>
+    </div>
 </div>
 {% endblock %}

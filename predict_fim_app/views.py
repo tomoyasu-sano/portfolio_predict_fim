@@ -89,11 +89,11 @@ def result(request):
     from plotly.offline import plot
     import plotly.figure_factory as ff
     df_graph = pd.DataFrame(np.array(df_sum_score), index=["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"], columns=["FIM合計点数"])
-    fig_graph = px.line(df_graph,x=df_graph.index, y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index,width=960, height=480)
+    fig_graph = px.line(df_graph,x=df_graph.index, y="FIM合計点数",  title='FIM合計点の予測', hover_name=df_graph.index)
     fig_graph_html = plot(fig_graph, output_type='div', include_plotlyjs=False)
 
     fig_table = ff.create_table(df_score, height_constant=30,index=True,index_title='FIM 項目')
-    fig_table.layout.width=960
+    #fig_table.layout.width=400
     fig_table_html = plot(fig_table, output_type='div', include_plotlyjs=False)
 
 
@@ -146,7 +146,7 @@ def _acurate_sum(output_df, input_dict):
     # 合計点数と各項目をdataframe化
     df_sum_score = [sum_0M_score, sum_1M_score,sum_2M_score,sum_3M_score]
     df_score = pd.concat([score_0M, score_1M, score_2M, score_3M]).T
-    df_score.columns = ["現在", "１ヶ月後予測", "2ヶ月後予測", "3ヶ月後予測"]
+    df_score.columns = ["現在", "１ヶ月後", "2ヶ月後", "3ヶ月後"]
 
     # FIM利得計算
     fim_enter = score_0M[fim_motor_item].sum(axis=1)
