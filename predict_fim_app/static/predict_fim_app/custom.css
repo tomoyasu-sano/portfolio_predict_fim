@@ -171,8 +171,11 @@ ul {
  }
 
  @media screen and (max-width: 800px) {
-  .padding-left, .padding-left-small, .graph {
+  .padding-left, .padding-left-small {
     padding-left: 50px;
+   
+  }
+  .graph{
     height: 360px;
   }
  }
