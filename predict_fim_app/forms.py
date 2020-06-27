@@ -17,7 +17,8 @@ disease=[
    (4,"その他")
 ]
 #4
-days=[
+# プルダウンの選択肢
+CHOICES = (
    (1,"1週間"),
    (2,"2週間"),
    (3,"3週間"),
@@ -27,7 +28,19 @@ days=[
    (7,"7週間"),
    (8,"8週間"),
    (9,"9週間以上"),
-]
+)
+
+#days=[
+ #  (1,"1週間"),
+  # (2,"2週間"),
+   #(3,"3週間"),
+#   (4,"4週間"),
+ #  (5,"5週間"),
+  # (6,"6週間"),
+   #(7,"7週間"),
+   #(8,"8週間"),
+   #(9,"9週間以上"),
+#]
 #5
 helper=[
    (0,"無し"),
@@ -234,10 +247,17 @@ class CareForm(forms.Form):
         required=True,initial=[2],
         widget=forms.RadioSelect)
 
+   
+   
+    #days = forms.ChoiceField(
+     #   label='４：発症からの経過日数', choices=days,
+      #  required=True,initial=[1],
+       # widget=forms.RadioSelect)
+
     days = forms.ChoiceField(
         label='４：発症からの経過日数', choices=days,
         required=True,initial=[1],
-        widget=forms.RadioSelect)
+        widget=forms.Select)
 
     helper = forms.ChoiceField(
         label='５：主要介護者の有無', choices=helper,
