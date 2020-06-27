@@ -18,7 +18,7 @@ disease=[
 ]
 
 #4
-pre_hospitalization_status = （
+pre_hospitalization_status =(
     (1,"自立"),
     (2,"要支援1"),
     (3,"要支援2"),
@@ -27,7 +27,7 @@ pre_hospitalization_status = （
     (6,"要介護3"),
     (7,"要介護4"),
     (8,"要介護5"),
-）
+)
 
 days = (
    (1,"1週間"),
@@ -40,6 +40,7 @@ days = (
    (8,"8週間"),
    (9,"9週間以上"),
 )
+
 family = [
     (1,"独居"),
     (2,"日中独居"),
@@ -273,7 +274,7 @@ class CareForm(forms.Form):
         widget=forms.Select)
 
     
-     family = forms.ChoiceField(
+    family = forms.ChoiceField(
         label='６：家族構成', choices=family,
         required=True,initial=[1],
         widget=forms.RadioSelect)
