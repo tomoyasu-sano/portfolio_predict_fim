@@ -1,10 +1,10 @@
 input_columns = [
-    'sex','age','disease','days','helper','meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing',
+    'sex','age','disease', 'pre_hospitalization_status','days','family','helper','motivation','meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing',
     'toiletAction','urinationControl','defecationControl','bedsChairsWheelchairs','toilet','bathtubShower','walkingWheelchair',
     'stairs','understanding','expression','socialCommunication','problemSolving','memory',
 ]
 
-attributes = ['sex','age','disease','days','helper']
+attributes = ['sex','age','disease', 'pre_hospitalization_status','days','family','helper','motivation']
 
 column_current =['meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing','toiletAction','urinationControl','defecationControl',
             'bedsChairsWheelchairs','toilet','bathtubShower','walkingWheelchair','stairs','understanding','expression',
@@ -45,4 +45,8 @@ sum_3M =['meal_after_3M','hygienic_after_3M','wipingClean_after_3M','upperBodyDr
     'toiletAction_after_3M','urinationControl_after_3M','defecationControl_after_3M','bedsChairsWheelchairs_after_3M','toilet_after_3M',
     'bathtubShower_after_3M','walkingWheelchair_after_3M','stairs_after_3M','understanding_after_3M','expression_after_3M','socialCommunication_after_3M',
     'problemSolving_after_3M','memory_after_3M'
+]
+
+fim_motor_item =['meal','hygienic','wipingClean','upperBodyDressing','lowerBodyDressing','toiletAction','urinationControl','defecationControl',
+            'bedsChairsWheelchairs','toilet','bathtubShower','walkingWheelchair','stairs'
 ]

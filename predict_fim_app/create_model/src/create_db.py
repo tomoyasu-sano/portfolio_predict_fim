@@ -4,11 +4,11 @@ making db and table from csv data
 data create_model/data/fim_data.csv
 １）csvのdataの「カラム」と「一番上のデータ」を切り取る
 ２）下記のquery tableにtable定義、query_valueに試しのデータとして、１）の「一番上のデータ」をセット
-３）このファイルをコマンドラインで叩く（python create.py)
+３）このファイルをコマンドラインで叩く（python create_db.py)
 ４）コマンドラインで、sqlite3 fim_db.sqlite3　でsqlite3の中に入る
 ５）テーブル確認後、１）のcsvファイルを挿入)
     .mode csv
-    .import csvファイル(絶対path) fim_data
+    .import csvfileの絶対path fim_data
 ６）fim_data テーブルにデータ挿入を確認
 """
 
@@ -24,7 +24,10 @@ conn = sqlite3.connect(db_name)
 cur = conn.cursor()
 
 
-query_table = "create table fim_data(id int primary key not null,sex int not null, age int not null, disease int not null, days int not null, helper int not null, \
+
+
+
+query_table = "create table fim_data(id int primary key not null,sex int not null, age int not null, disease int not null, pre_hospitalization_status int not null, days int not null, family int not null, helper int not null, motivation int not null,\
             meal intger not null, hygienic intger not null, wipingClean intger not null, upperBodyDressing intger not null, \
             lowerBodyDressing intger not null, toiletAction intger not null,  urinationControl intger not null, defecationControl intger not null, \
             bedsChairsWheelchairs intger not null, toilet intger not null, bathtubShower intger not null, walkingWheelchair intger not null, stairs intger not null, \
@@ -49,7 +52,7 @@ query_table = "create table fim_data(id int primary key not null,sex int not nul
             problemSolving_after_3M intger not null, memory_after_3M intger not null  \
             )"
 
-query_value = "insert into fim_data values(1,2,72,4,9,1,5,5,4,4,3,3,4,4,5,3,3,4,3,5,5,5,4,4,1,5,6,5,5,4,4,4,5,5,4,3,5,3,6,5,5,4,5,6,7,5,7,6,5,4,5,5,4,3,5,5,6,7,5,6,5,7,7,7,7,7,7,6,6,6,4,6,6,5,6,7,5,7,7)"
+query_value = "insert into fim_data values(1,2,71,2,4,4,2,1,3,5,5,4,4,3,3,4,4,5,3,3,4,3,5,5,5,4,4,1,6,6,5,4,4,3,4,4,5,3,3,4,3,6,5,5,4,5,6,6,7,7,5,5,6,7,7,5,3,6,4,7,7,6,6,6,7,7,7,7,6,5,6,7,7,6,6,7,6,7,7,7,6,7)"
 
 
 

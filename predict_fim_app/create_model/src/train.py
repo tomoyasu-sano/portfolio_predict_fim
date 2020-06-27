@@ -91,7 +91,7 @@ print(results_home["predict_home"])
 """
 
 if __name__ == "__main__":
-    path_to_df_file = "predict_fim_app/create_model/data/df.pickle"
+    path_to_df_file = "./predict_fim_app/create_model/data/df.pickle"
     #num_boost_round引数は勾配ブースティングのイテレーションの回数
-    path_to_models_dir = "predict_fim_app/create_model/trained_models/"
+    path_to_models_dir = "./predict_fim_app/create_model/trained_models/"
     train(path_to_df_file, path_to_models_dir)

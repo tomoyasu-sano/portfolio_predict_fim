@@ -18,4 +18,4 @@ select * from fim_data;
 """
 
 df = pd.read_sql(query, conn)
-df.to_pickle("predict_fim_app/create_model/data/df.pickle")
+df.to_pickle("./predict_fim_app/create_model/data/df.pickle")
